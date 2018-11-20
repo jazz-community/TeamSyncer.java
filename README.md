@@ -33,6 +33,19 @@ The places to look for are tagged "user-specific", affected files:
 OSLC vs. Plain Java API: The C# version used OSLC for accessing Jazz applications. In Java it seemed more appropriate to change to Plain Java API, which worked well for RTC and RQM.
 For RDNG Plain Java API login somehow did not work together with Kerberos and as IBM was not able or willing to resolve that, OSLC access is still used for this. Thus the quirky switch in RepoManager.java.
 
+## Used Java Packages (Dependencies)
+- Jazz Plain Java API v 6.0.5 (not uploaded)
+- `<groupId>org.gitlab4j</groupId>
+  <artifactId>gitlab4j-api</artifactId>
+  <version>4.8.9</version>`
+-   `<groupId>org.jfrog.artifactory.client</groupId>
+  <artifactId>artifactory-java-client-services</artifactId>
+  <version>2.6.2</version>`
+-   `<groupId>com.google.code.gson</groupId>
+  <artifactId>gson</artifactId>
+  <version>2.8.2</version>`
+
+- Above three packages contained in folder 'external' together with all child jars
 
 ## Licensing
 
