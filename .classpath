@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="test">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/aopalliance-repackaged-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/artifactory-java-client-api-2.6.2.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/artifactory-java-client-httpClient-2.6.2.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/artifactory-java-client-services-2.6.2.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/commons-lang3-3.7.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/gitlab4j-api-4.8.9.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/groovy-2.4.15.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/gson-2.8.2.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/hk2-api-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/hk2-locator-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/hk2-utils-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/httpclient-4.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jackson-annotations-2.9.5.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jackson-core-2.9.5.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jackson-databind-2.9.5.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jackson-jaxrs-base-2.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jackson-jaxrs-json-provider-2.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jackson-module-jaxb-annotations-2.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/javassist-3.22.0-CR2.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/javax.activation-1.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/javax.annotation-api-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/javax.inject-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/javax.ws.rs-api-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jaxb-api-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jcl-over-slf4j-1.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jersey-apache-connector-2.26.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jersey-client-2.26.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jersey-common-2.26.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/jersey-hk2-2.26.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/log4j-over-slf4j-1.7.2.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/logback-classic-1.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/logback-core-1.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/osgi-resource-locator-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/GitRepos/TeamSyncer.java/external/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/PlainJavaAPI-6.0.5"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

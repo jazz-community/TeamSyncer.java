@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping version="6">
+<!--
+    This is the team syncer mapping file
+    
+    Please customize it according to your particular team syncing requirements
+        
+    Usage:
+    - Every mapping entry consists of one <targetArea> element with at least one subordinate <soureArea> element
+    - Every area is defined by
+        - either the attribute 'name', the name must be given as full "path" i.e. projectAreaName/teamAreaName/subTeamAreaName/subSub...
+        - or the attribute 'oid', the oid must be given as "path" projectAreaOid/teamAreaOid/subTeamAreaOid/subSub...
+        - new since v2.0: optional attribute 'repo' to define the jazz repository by url (e.g. "https://jazzdev.rsint.net/ccm")
+            This makes it possible to sync accross jazz application borders (e.g. RTC to RDNG) and jazz server borders (e.g. from 'jazz' to 'jazzdev')
+            The commandline repository url parameter for compatibility purposes is still required and is the default if no 'repo' attribute is present
+    - Optionally several <soureArea> elements can be specified, the selected members will be additively synced to the target area
+    - Each <sourceArea> element optionally can contain <select> subelements selecting only members with this role(s)
+    - No <select> subelement at all means -> all members (including those with role="default")
+    - Members found in the target area which are not synced by an appropriate <sourceArea> element will be removed from the target area
+        This also applies to roles members in the target area may have
+        This implicates that per target area only ONE target area entry is permitted whereas a source area can be referred more than once
+    - Each <targetArea> or <sourceArea> element optionally can have <assign> subelements meaning all selected members get this role(s) assigned in the targetArea
+        This implies that the role in the targetArea is possibly different to the role(s) in the sourceArea
+    - Each <targetArea> or <sourceArea> element optionally can have <excludeAssign> subelements meaning this role(s) are explicitly excluded from the roles the members can get
+        This makes it possible to e.g. exclude the role "Team Admin T"
+    - Each <targetArea> element  optionally can have a attribute 'mode' with value "merge" meaning the target roles are merged to existing roles
+        This makes it possible to add target roles without affecting existing members and roles
+
+    Notes:
+    - Whenever a mapping entry is complete (i.e. the closing </targetArea> element is processed) the syncing is done immediately
+        This implies, that the next mapping entry finds all areas in the state left according to the mapping rule before
+        
+    New in version 3.0 (LDAP added as sync source and/or sync target):
+    - New elements <targetLDAPGroup> and <sourceLDAPGroup>, usage analog to the <xxxArea> elements
+    - Attributes for the new elements are 'name' and 'domain' (at R&S domain="rsint.net"), instead of 'name' also 'guid' can be used
+		- As LDAP group members have no "role" sub elements 'assign' and 'select' are useful only in specific contexts
+			- Sub element 'assign' works as expected if sync is from LDAP -> Jazz
+			- Sub element 'select' works as expected if sync is from Jazz -> LDAP
+		- ... see examples 7 and 8
+	
+		New in version 4.0 (GitLab added as sync source and/or sync target):
+		GitLab:
+    - New elements <targetGitLab> and <sourceGitLab>, usage analog to the <xxxArea> elements
+    - Attributes for the new elements are 'name' (path-like GitLab group or project name) and 'url' (GitLab server url)
+		- 'name' can either qualify a GitLab group or a GitLab project (what it is will be automatically determined)
+    - As GitLab group members have an access level, which is a (sort of) "role" sub elements like 'assign' and 'select' work similar to Jazz
+		- Only one 'assign' per target or source element useful if sync is to GitLab
+		- ... see example 9
+		Other enhancements:
+		- For Jazz source areas (i.e. RTC, RDNG, RQM) an attribute 'mode' can be set to "recursive" (syntax: mode="recursive").
+			- This adds ALL sub team areas beneath the specified area to the sync source
+		- For RTC and RQM team areas it's now sufficient to specify only the team area oid without prepending path oids
+			- Unfortunately accessing RDNG still only works with REST API (i.e. still the whole oid path is required)
+			
+		New in version 4.1 (Artifactory internal groups addeds as sync source and/or sync target):
+    - New elements <targetArtifactory> and <sourceArtifatory>, usage analog to the <xxxArea> elements
+    - Attributes for the new elements are 'name' (Artifactory group name) and 'url' (Artifactory server url)
+    - Artifactory members have no specific "role" in a group, so handling of 'assign' and 'select' is like in LDAP groups only useful in specific contexts
+ 		- ... see example 10
+-->
+
+<!--
+    Example 1: Sync all members with all roles
+-->	
+  <targetArea name="xxx/xxxx/yyyy">
+    <sourceArea name="xxx/xxxx/aaaa"/>
+  </targetArea>
+
+<!--
+    Example 1a: Sync all members with all roles, areas defined by oids
+-->	
+  <targetArea oid="_xxxxxxxxxxx/_yyyyyyyyyy/_aaaaaaaaaa">
+    <sourceArea oid="_xxxxxxxxxxx/_zzzzzzzzzz/_bbbbbbbbbb"/>
+  </targetArea>
+
+<!--
+    Example 1b: Sync members between different repositories
+-->	
+  <targetArea repo="https://jazzdev.rsint.net/ccm" name="xxx/xxxx/yyyy">
+    <sourceArea repo="https://jazzqual.rsint.net/rm" name="xxx/xxxx/aaaa"/>
+  </targetArea>
+
+<!--
+    Example 2: Sync all members with all roles but don't assign "Team Admin T"
+-->	
+  <targetArea name="xxx/xxxx/yyyy">
+    <excludeAssign>Team Admin T</excludeAssign>
+    <sourceArea name="xxx/xxxx/aaaa"/>
+  </targetArea>
+
+<!--
+    Example 3: Sync Submitters only
+-->	
+  <targetArea name="xxx/xxxx/yyyy">
+    <sourceArea name="xxx/xxxx/aaaa">
+      <select>Submitter</select>
+    </sourceArea>
+  </targetArea>
+
+<!--
+    Example 4: Sync Submitters & Stakeholders
+-->	
+  <targetArea name="xxx/xxxx/yyyy">
+    <sourceArea name="xxx/xxxx/aaaa">
+      <select>Submitter</select>
+      <select>Stakeholder</select>
+    </sourceArea>
+  </targetArea>
+
+<!--
+    Example 5: Sync Submitters from one and Stakeholders from another source area
+-->	
+  <targetArea name="xxx/xxxx/yyyy">
+    <sourceArea name="xxx/xxxx/aaaa">
+      <select>Submitter</select>
+    </sourceArea>
+    <sourceArea name="xxx/xxxx/bbbb">
+      <select>Stakeholder</select>
+    </sourceArea>
+  </targetArea>
+
+<!--
+    Example 5: Sync Members & Stakeholders from different source areas but give them the role "Submitter"
+-->	
+  <targetArea name="xxx/xxxx/yyyy">
+    <assign>Submitter</assign>
+    <sourceArea name="xxx/xxxx/aaaa">
+      <select>Member</select>
+    </sourceArea>
+    <sourceArea name="xxx/xxxx/bbbb">
+      <select>Stakeholder</select>
+    </sourceArea>
+  </targetArea>
+
+<!--
+    Example 5: Sync Members from different source areas and assign roles "Submitter" AND "Stakeholder"
+-->	
+  <targetArea name="xxx/xxxx/yyyy">
+    <assign>Submitter</assign>
+    <assign>Stakeholder</assign>
+    <sourceArea name="xxx/xxxx/aaaa">
+      <select>Member</select>
+    </sourceArea>
+    <sourceArea name="xxx/xxxx/bbbb">
+      <select>Member</select>
+    </sourceArea>
+  </targetArea>
+
+<!--
+    Example 6: Sync Members from different source areas, assign role "Submitter" AND "Stakeholder" but "Stakeholder" only to those from the first sourceArea
+-->	
+  <targetArea name="xxx/xxxx/yyyy">
+    <assign>Submitter</assign>
+    <sourceArea name="xxx/xxxx/aaaa">
+      <assign>Stakeholder</assign>
+      <select>Member</select>
+    </sourceArea>
+    <sourceArea name="xxx/xxxx/bbbb">
+      <select>Member</select>
+    </sourceArea>
+  </targetArea>
+
+<!--
+    Example 7: Sync Members from different LDAP groups to team area and assign role "Submitter" or "Stakeholder"
+-->	
+  <targetArea name="xxx/xxxx/yyyy">
+    <sourceLDAPGroup domain="rsint.net" name="aaaa">
+      <assign>Submitter</assign>
+    </sourceLDAPGroup>
+    <sourceLDAPGroup domain="rsint.net" name="bbbb">
+      <assign>Stakeholder</assign>
+    </sourceLDAPGroup>
+  </targetArea>
+
+<!--
+    Example 8: Sync Members with role "Submitter" to LDAP group, LDAP group specified by guid
+-->	
+  <targetLDAPGroup domain="rsint.net" guid="{XXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}">
+    <sourceArea name="xxx/xxxx/aaaa">
+      <select>Submitter</select>
+    </sourceArea>
+    <sourceArea name="xxx/xxxx/bbbb">
+      <select>Submitter</select>
+    </sourceArea>
+  </targetLDAPGroup>
+
+<!--
+    Example 9: Sync Jazz members with role "Submitter" and all members of another GitLab group to GitLab group/project
+-->	
+  <targetGitLab url="https://codequal.rsint.net" name="xxxxx/yyyyy/zzzz">
+    <sourceArea name="aaaaaaaaaaa/bbbbbbbbbbb/cccccccccccccccccc">
+      <select>Submitter</select>
+	  <assign>reporter</assign>
+    </sourceArea>
+    <sourceGitLab url="https://code.rsint.net" name="ABC" />
+  </targetGitLab>
+
+<!--
+    Example 10: Sync members of two LDAP groups and one Artifactory (internal) group to another Artifactory (internal) group
+-->	
+  <targetArtifactory url="https://artifactorydev.rsint.net" name="artifactory_helmeric_test">
+    <sourceLDAPGroup domain="rsint.net" name="artifactory_PLM2_manager" />
+    <sourceLDAPGroup domain="rsint.net" name="artifactory_PLM2_user" />
+		<sourceArtifactory url="https://artifactorydev.rsint.net" name="artifactory_plm_deployer" />
+  </targetArtifactory>
+
+</mapping>
